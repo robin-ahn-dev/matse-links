@@ -27,20 +27,20 @@ function App() {
           ILLIAS
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 mt-8 w-[90%] md:w-[90%] lg:w-[80%] xl:w-[80%] gap-8">
-          <Box title="BWL" url="" />
+          <Box title="BWL" url="https://www.ili.fh-aachen.de/ilias.php?baseClass=ilrepositorygui&ref_id=56953" />
           <Box title="Stochastik" url="https://www.ili.fh-aachen.de/ilias.php?baseClass=ilrepositorygui&ref_id=1300898" />
           <Box title="Softwaretechnik" url="https://www.ili.fh-aachen.de/ilias.php?baseClass=ilrepositorygui&ref_id=1296678" />
-          <Box title="Datenbanken" url="" />
+          <Box title="Datenbanken" url="https://www.ili.fh-aachen.de/ilias.php?baseClass=ilrepositorygui&ref_id=134564" />
         </div>
         
         <h2 className="text-[50px] font-bold text-center mt-20 mb-4 text-white">
           Hausaufgaben
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 mt-8 w-[90%] md:w-[90%] lg:w-[80%] xl:w-[80%] gap-8">
-          <Box title="BWL" url="" />
+          {/* <Box title="BWL" url="" /> */}
           <Box title="Stochastik" url="https://www.ili.fh-aachen.de/ilias.php?baseClass=ilexercisehandlergui&cmdNode=cd:n6&cmdClass=ilObjExerciseGUI&cmd=showOverview&ref_id=1303392&target=1303392" />
           <Box title="Softwaretechnik" url="https://www.ili.fh-aachen.de/ilias.php?baseClass=ilexercisehandlergui&cmdNode=cd:n6&cmdClass=ilObjExerciseGUI&cmd=showOverview&ref_id=1296680&target=1296680" />
-          <Box title="Datenbanken" url="" />
+          {/* <Box title="Datenbanken" url="" /> */}
         </div>
         
         <h2 className="text-[50px] font-bold text-center mt-20 mb-4 text-white">
