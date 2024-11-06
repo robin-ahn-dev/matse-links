@@ -1,8 +1,17 @@
-# React + Vite
+# 🌐 MATSE Studiengang - Wichtige Seiten für die duale Ausbildung
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Hier findest du eine Übersicht aller wichtigen Links und Ressourcen für den MATSE-Studiengang. Falls dir noch etwas fehlt, lass es mich gerne wissen! 😊
 
-Currently, two official plugins are available:
+## Inhalt
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 📚 Allgemeines
+* Stundenplan
+* Stundenplan
+
+### Allgemeines
+* Stundenplan
+* Stundenpla
+
+### Allgemeines
+* Stundenplan
+* Stundenplan
