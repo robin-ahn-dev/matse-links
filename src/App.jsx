@@ -110,7 +110,7 @@ function App() {
           onClick={() => setPopup(null)}
         >
           <div
-            className="bg-white p-4 rounded-lg w-[600px] relative"
+            className="bg-white p-4 rounded-lg w-[600px] relative max-w-[80%]"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-2xl font-bold text-blue-500">Informationen</h2>
@@ -122,7 +122,7 @@ function App() {
               "lecturer.name",
               "information",
             ].map((key, i) => (
-              <p key={i} className="mt-2">
+              <p key={i} className="mt-2 text-black">
                 <strong>{key.split(".")[0]}:</strong>{" "}
                 {key.includes("start") || key.includes("end")
                   ? new Date(popup[key.split(".")[0]]).toLocaleTimeString(
@@ -142,10 +142,12 @@ function App() {
           </div>
         </div>
       )}
-      <h2 className="text-3xl font-bold mt-20">
+      <h2 className="text-3xl text-center font-bold mt-20 max-w-[80%] leading-30">
         Stundenplan{" "}
+        <p className="font-normal text-[20px] text-gray-500">
         {new Date().toLocaleDateString("de-DE", { weekday: "long" })} (
         {new Date().toLocaleDateString("de-DE")})
+        </p>
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-[80%] gap-8 mt-8">
         {data?.map((item, i) => (
@@ -172,7 +174,7 @@ function App() {
                 minute: "2-digit",
               })}
             </p>
-            <h2 className="text-lg font-bold mt-4">{item.name}</h2>
+            <h2 className="text-lg text-center mt-4">{item.name}</h2>
           </div>
         ))}
       </div>
