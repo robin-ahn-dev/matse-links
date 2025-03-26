@@ -1,6 +1,15 @@
 import Box from "./Box";
 import { useEffect, useState } from "react";
-import { X, Globe, Mail, Book, FileText, BookOpen } from 'lucide-react';
+import {
+  X,
+  Globe,
+  Mail,
+  Book,
+  FileText,
+  BookOpen,
+  ExternalLink,
+} from "lucide-react";
+import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa6";
 
 function App() {
   const [data, setData] = useState(null);
@@ -110,7 +119,7 @@ function App() {
           onClick={() => setPopup(null)}
         >
           <div
-            className="bg-white p-4 rounded-lg w-[600px] relative max-w-[80%]"
+            className="bg-white p-4 rounded-lg w-[600px] relative max-w-[90%]"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-2xl font-bold text-blue-500">Informationen</h2>
@@ -142,14 +151,22 @@ function App() {
           </div>
         </div>
       )}
-      <h2 className="text-3xl text-center font-bold mt-20 max-w-[80%] leading-30">
-        Stundenplan{" "}
-        <p className="font-normal text-[20px] text-gray-500">
-        {new Date().toLocaleDateString("de-DE", { weekday: "long" })} (
-        {new Date().toLocaleDateString("de-DE")})
+      <h2
+        className="text-3xl text-center font-bold mt-20 max-w-[90%] leading-30 cursor-pointer"
+        onClick={() =>
+          window.open(
+            "https://www.matse.itc.rwth-aachen.de/stundenplan/web/index.html"
+          )
+        }
+      >
+        Stundenplan
+        <ExternalLink className="inline ml-2 w-6 h-6 -mt-1" color="#3C82F6" />
+        <p className="font-normal text-[18px] text-gray-500">
+          {new Date().toLocaleDateString("de-DE", { weekday: "long" })} (
+          {new Date().toLocaleDateString("de-DE")})
         </p>
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-[80%] gap-8 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-[90%] gap-8 mt-8">
         {data?.map((item, i) => (
           <div
             key={i}
@@ -179,8 +196,8 @@ function App() {
         ))}
       </div>
       {Object.keys(links).map((title, i) => (
-        <section key={i} className="mt-20 w-[80%] mb-16">
-          <h2 className="text-4xl font-bold mt-4 mb-8">
+        <section key={i} className="mt-20 w-[90%] mb-16">
+          <h2 className="text-4xl text-center font-bold mt-4 mb-8">
             {title}{" "}
             {title === "Allgemeines " && (
               <Globe className="inline ml-2 w-10 h-10 -mt-2" />
@@ -205,6 +222,14 @@ function App() {
           </div>
         </section>
       ))}
+      <footer className="w-full bg-transparent text-center py-10 mt-20 border-t border-gray-700 flex-col flex items-center">
+        <div className="flex gap-4 mb-4">
+          <a href="https://github.com/robin-ahn-dev" target="_blank" className="w-[29px] h-[29px]"><FaGithub className="h-full w-full hover:text-blue-500 transition-all"/></a>
+          <a href="https://instagram.com/robin_ahn_dev" target="_blank" className="w-[29px] h-[29px]"><FaInstagram className="h-full w-full hover:text-blue-500 transition-all"/></a>
+          <a href="https://linkedin.com/in/robin-ahn" target="_blank" className="w-[29px] h-[29px]"><FaLinkedin className="h-full w-full hover:text-blue-500 transition-all"/></a>
+        </div>
+        <p className="text-gray-400">Copyright © 2025 Robin Ahn. Alle Rechte vorbehalten</p>
+      </footer>
     </div>
   );
 }
