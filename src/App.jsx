@@ -14,6 +14,7 @@ import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa6";
 function App() {
   const [data, setData] = useState(null);
   const [popup, setPopup] = useState(null);
+  const [currentSlot, setCurrentSlot] = useState(0);
 
   const links = {
     "Allgemeines ": [
@@ -23,8 +24,12 @@ function App() {
         url: "https://berufsausbildung-aachen-ihk.de/tibrosBB/BB_auszubildende.jsp",
       },
       {
-        name: "Stundenplan",
-        url: "https://www.matse.itc.rwth-aachen.de/stundenplan/web/index.html",
+        name: "Klausurenpläne",
+        url: "https://www.fh-aachen.de/studium/studiengaenge/angewandte-mathematik-und-informatik-bsc-dual/fuer-studierende",
+      },
+      {
+        name: "H1 Portal",
+        url: "https://h1.fh-aachen.de/qisserver/pages/cs/sys/portal/hisinoneStartPage.faces",
       },
       {
         name: "Ahornstraße",
@@ -47,30 +52,30 @@ function App() {
     ],
     ILIAS: [
       {
-        name: "BWL",
-        url: "https://www.ili.fh-aachen.de/ilias.php?baseClass=ilrepositorygui&ref_id=56953",
+        name: "Numerik",
+        url: "https://www.ili.fh-aachen.de/ilias.php?baseClass=ilrepositorygui&ref_id=1374292",
       },
       {
-        name: "Stochastik",
-        url: "https://www.ili.fh-aachen.de/ilias.php?baseClass=ilrepositorygui&ref_id=1300898",
+        name: "WebEng & Internettechnologien",
+        url: "https://www.ili.fh-aachen.de/ilias.php?baseClass=ilrepositorygui&ref_id=702992",
       },
       {
-        name: "Softwaretechnik",
-        url: "https://www.ili.fh-aachen.de/ilias.php?baseClass=ilrepositorygui&ref_id=1296678",
+        name: "Kommunikationssysteme",
+        url: "https://www.ili.fh-aachen.de/ilias.php?baseClass=ilrepositorygui&ref_id=1082426",
       },
       {
-        name: "Datenbanken",
-        url: "https://www.ili.fh-aachen.de/ilias.php?baseClass=ilrepositorygui&ref_id=134564",
+        name: "Wissenschaftliches Arbeiten",
+        url: "",
       },
     ],
     Hausaufgaben: [
       {
-        name: "Stochastik",
+        name: "Numerik",
         url: "https://www.ili.fh-aachen.de/ilias.php?baseClass=ilexercisehandlergui&cmdNode=cd:n6&cmdClass=ilObjExerciseGUI&cmd=showOverview&ref_id=1303392&target=1303392",
       },
       {
-        name: "Softwaretechnik",
-        url: "https://www.ili.fh-aachen.de/ilias.php?baseClass=ilexercisehandlergui&cmdNode=cd:n6&cmdClass=ilObjExerciseGUI&cmd=showOverview&ref_id=1296680&target=1296680",
+        name: "Kommunikationssysteme",
+        url: "https://www.ili.fh-aachen.de/ilias.php?baseClass=ilrepositorygui&ref_id=1082426",
       },
     ],
     "MATSE Wiki": [
@@ -111,6 +116,24 @@ function App() {
     })();
   }, []);
 
+  useEffect(() => {
+    const updateSlot = () => {
+      const now = new Date();
+      const currentSlot = data?.find((item) => {
+        const start = new Date(item.start);
+        const end = new Date(item.end);
+        return now >= start && now <= end;
+      });
+      console.log(currentSlot);
+      setCurrentSlot(currentSlot);
+    };
+  
+    updateSlot(); // Initial ausführen
+    const interval = setInterval(updateSlot, 60000); // Danach jede Minute
+  
+    return () => clearInterval(interval);
+  }, [data]);  
+
   return (
     <div className="h-full flex flex-col items-center mt-2 text-white">
       {popup && (
@@ -119,7 +142,7 @@ function App() {
           onClick={() => setPopup(null)}
         >
           <div
-            className="bg-white p-4 rounded-lg w-[600px] relative max-w-[90%]"
+            className="bg-white opacity-100 z-50 p-4 rounded-lg w-[600px] relative max-w-[90%]"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-2xl font-bold text-blue-500">Informationen</h2>
@@ -172,13 +195,16 @@ function App() {
             key={i}
             onClick={() => setPopup(item)}
             className={`cursor-pointer rounded-2xl p-5 flex flex-col items-center ${
-              {
-                "Numerik 1": "bg-red-500",
-                "Web-Engineering und Internettechnologien": "bg-blue-500",
-                Kommunikationssysteme: "bg-green-500",
-                "Wissenschaftliches Arbeiten": "bg-yellow-500",
-              }[item.name] || "bg-purple-500"
-            }`}
+              currentSlot?.name === item.name ? "opacity-100" : "opacity-30"
+            } 
+              ${
+                {
+                  "Numerik 1": "bg-red-500",
+                  "Web-Engineering und Internettechnologien": "bg-blue-500",
+                  Kommunikationssysteme: "bg-green-500",
+                  "Wissenschaftliches Arbeiten": "bg-yellow-500",
+                }[item.name] || "bg-purple-500"
+              }`}
           >
             <p className="bg-slate-900/20 rounded-lg px-2 py-1">
               {new Date(item.start).toLocaleTimeString("de-DE", {
@@ -197,7 +223,7 @@ function App() {
       </div>
       {Object.keys(links).map((title, i) => (
         <section key={i} className="mt-20 w-[90%] mb-16">
-          <h2 className="text-4xl text-center font-bold mt-4 mb-8">
+          <h2 className="text-4xl text-center lg:text-left font-bold mt-4 mb-8">
             {title}{" "}
             {title === "Allgemeines " && (
               <Globe className="inline ml-2 w-10 h-10 -mt-2" />
@@ -224,11 +250,31 @@ function App() {
       ))}
       <footer className="w-full bg-transparent text-center py-10 mt-20 border-t border-gray-700 flex-col flex items-center">
         <div className="flex gap-4 mb-4">
-          <a href="https://github.com/robin-ahn-dev" target="_blank" className="w-[29px] h-[29px]"><FaGithub className="h-full w-full hover:text-blue-500 transition-all"/></a>
-          <a href="https://instagram.com/robin_ahn_dev" target="_blank" className="w-[29px] h-[29px]"><FaInstagram className="h-full w-full hover:text-blue-500 transition-all"/></a>
-          <a href="https://linkedin.com/in/robin-ahn" target="_blank" className="w-[29px] h-[29px]"><FaLinkedin className="h-full w-full hover:text-blue-500 transition-all"/></a>
+          <a
+            href="https://github.com/robin-ahn-dev"
+            target="_blank"
+            className="w-[29px] h-[29px]"
+          >
+            <FaGithub className="h-full w-full hover:text-blue-500 transition-all" />
+          </a>
+          <a
+            href="https://instagram.com/robin_ahn_dev"
+            target="_blank"
+            className="w-[29px] h-[29px]"
+          >
+            <FaInstagram className="h-full w-full hover:text-blue-500 transition-all" />
+          </a>
+          <a
+            href="https://linkedin.com/in/robin-ahn"
+            target="_blank"
+            className="w-[29px] h-[29px]"
+          >
+            <FaLinkedin className="h-full w-full hover:text-blue-500 transition-all" />
+          </a>
         </div>
-        <p className="text-gray-400">Copyright © 2025 Robin Ahn. Alle Rechte vorbehalten</p>
+        <p className="text-gray-400">
+          Copyright © 2025 Robin Ahn. Alle Rechte vorbehalten
+        </p>
       </footer>
     </div>
   );
