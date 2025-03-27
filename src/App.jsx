@@ -16,6 +16,16 @@ function App() {
   const [popup, setPopup] = useState(null);
   const [currentSlot, setCurrentSlot] = useState(0);
 
+  const setOverflow = (type) => {
+    const body = document.querySelector("body");
+    if (type){
+      body.style.overflow = "hidden";
+    }
+    else {
+      body.style.overflow = "auto";
+    }
+  }
+
   const links = {
     "Allgemeines ": [
       { name: "Paddel", url: "https://matse.paddel.xyz/" },
@@ -105,6 +115,7 @@ function App() {
   useEffect(() => {
     (async () => {
       const date = new Date().toISOString().split("T")[0];
+      //const date = "2025-03-26";
       const res = await fetch(
         `https://api.allorigins.win/raw?url=${encodeURIComponent(
           `https://www.matse.itc.rwth-aachen.de/stundenplan/web/eventFeed/2&null?start=${date}&end=${date}`
@@ -124,7 +135,6 @@ function App() {
         const end = new Date(item.end);
         return now >= start && now <= end;
       });
-      console.log(currentSlot);
       setCurrentSlot(currentSlot);
     };
 
@@ -139,7 +149,7 @@ function App() {
       {popup && (
         <div
           className="absolute inset-0 flex items-center justify-center bg-black/70"
-          onClick={() => setPopup(null)}
+          onClick={() => (setPopup(null), setOverflow(false))}
         >
           <div
             className="bg-white opacity-100 z-50 p-4 rounded-lg w-[600px] relative max-w-[90%]"
@@ -163,17 +173,17 @@ function App() {
                 </>
               )}
               {popup.information !== "<br />" && popup.information && (
-                  <>
-                    <strong>Informationen</strong>
-                    <p
-                      dangerouslySetInnerHTML={{ __html: popup.information }}
-                      className="text-gray-700 mb-4"
-                    ></p>
-                  </>
-                )}
+                <>
+                  <strong>Informationen</strong>
+                  <p
+                    dangerouslySetInnerHTML={{ __html: popup.information }}
+                    className="text-gray-700 mb-4"
+                  ></p>
+                </>
+              )}
             </div>
             <button
-              onClick={() => setPopup(null)}
+              onClick={() => (setPopup(null), setOverflow(false))}
               className="absolute top-3 right-3 bg-blue-500 text-white w-10 h-10 flex items-center justify-center rounded-full"
             >
               <X />
@@ -200,9 +210,16 @@ function App() {
         {data?.map((item, i) => (
           <div
             key={i}
-            onClick={() => setPopup(item)}
+            onClick={() => (setPopup(item), setOverflow(true))}
             className={`cursor-pointer rounded-2xl p-5 flex flex-col items-center ${
-              currentSlot?.name === item.name ? "opacity-100" : "opacity-30"
+              currentSlot?.isExercise === "0" && currentSlot?.name === item.name
+                ? "opacity-100"
+                : "opacity-30"
+            } ${
+              currentSlot?.isExercise === "1" &&
+              currentSlot?.information === item.information
+                ? "!opacity-100"
+                : "!opacity-30"
             } 
               ${
                 {
