@@ -127,12 +127,12 @@ function App() {
       console.log(currentSlot);
       setCurrentSlot(currentSlot);
     };
-  
+
     updateSlot(); // Initial ausführen
     const interval = setInterval(updateSlot, 60000); // Danach jede Minute
-  
+
     return () => clearInterval(interval);
-  }, [data]);  
+  }, [data]);
 
   return (
     <div className="h-full flex flex-col items-center mt-2 text-white">
@@ -146,25 +146,32 @@ function App() {
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-2xl font-bold text-blue-500">Informationen</h2>
-            {[
-              "name",
-              "start",
-              "end",
-              "location.name",
-              "lecturer.name",
-              "information",
-            ].map((key, i) => (
-              <p key={i} className="mt-2 text-black">
-                <strong>{key.split(".")[0]}:</strong>{" "}
-                {key.includes("start") || key.includes("end")
-                  ? new Date(popup[key.split(".")[0]]).toLocaleTimeString(
-                      "de-DE",
-                      { hour: "2-digit", minute: "2-digit" }
-                    )
-                  : popup[key.split(".")[0]]?.[key.split(".")[1]] ||
-                    "Keine Angabe"}
+            <div className="flex flex-col mt-4 text-black">
+              <strong>Name</strong>
+              <p className="text-gray-700 mb-4">{popup.name}</p>
+              <strong>Start</strong>
+              <p className="text-gray-700 mb-4">
+                {popup.start.split("T")[1].slice(0, 5)} -{" "}
+                {popup.end.split("T")[1].slice(0, 5)}
               </p>
-            ))}
+              <strong>Raum</strong>
+              <p className="text-gray-700 mb-4">{popup.location.desc}</p>
+              {popup.lecturer.name && (
+                <>
+                  <strong>Dozent</strong>
+                  <p className="text-gray-700 mb-4">{popup.lecturer.name}</p>
+                </>
+              )}
+              {popup.information !== "<br />" && popup.information && (
+                  <>
+                    <strong>Informationen</strong>
+                    <p
+                      dangerouslySetInnerHTML={{ __html: popup.information }}
+                      className="text-gray-700 mb-4"
+                    ></p>
+                  </>
+                )}
+            </div>
             <button
               onClick={() => setPopup(null)}
               className="absolute top-3 right-3 bg-blue-500 text-white w-10 h-10 flex items-center justify-center rounded-full"
