@@ -42,8 +42,8 @@ function App() {
         url: "https://h1.fh-aachen.de/qisserver/pages/cs/sys/portal/hisinoneStartPage.faces",
       },
       {
-        name: "Ahornstraße",
-        url: "https://www.studierendenwerk-aachen.de/de/Gastronomie/mensa-ahornstrasse-wochenplan.html",
+        name: "GitLab",
+        url: "https://git.fh-aachen.de/",
       },
       {
         name: "Academica",
