@@ -14,17 +14,16 @@ import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa6";
 function App() {
   const [data, setData] = useState(null);
   const [popup, setPopup] = useState(null);
-  const [currentSlot, setCurrentSlot] = useState(0);
+  const [currentSlot, setCurrentSlot] = useState([]);
 
   const setOverflow = (type) => {
     const body = document.querySelector("body");
-    if (type){
+    if (type) {
       body.style.overflow = "hidden";
-    }
-    else {
+    } else {
       body.style.overflow = "auto";
     }
-  }
+  };
 
   const links = {
     "Allgemeines ": [
@@ -78,14 +77,18 @@ function App() {
         url: "",
       },
     ],
-    Hausaufgaben: [
+    Skripte: [
       {
-        name: "Numerik",
-        url: "https://www.ili.fh-aachen.de/ilias.php?baseClass=ilexercisehandlergui&cmdNode=cd:n6&cmdClass=ilObjExerciseGUI&cmd=showOverview&ref_id=1303392&target=1303392",
+        name: "Numerik Skript",
+        url: "/pdf/num-skript.pdf",
       },
       {
-        name: "Kommunikationssysteme",
-        url: "https://www.ili.fh-aachen.de/ilias.php?baseClass=ilrepositorygui&ref_id=1082426",
+        name: "Numerik Folien",
+        url: "/pdf/num-folien.pdf",
+      },
+      {
+        name: "Numerik Spicker",
+        url: "/pdf/num-spicker.pdf",
       },
     ],
     "MATSE Wiki": [
@@ -115,7 +118,7 @@ function App() {
   useEffect(() => {
     (async () => {
       const date = new Date().toISOString().split("T")[0];
-      //const date = "2025-03-26";
+      //const date = "2025-03-27";
       const res = await fetch(
         `https://api.allorigins.win/raw?url=${encodeURIComponent(
           `https://www.matse.itc.rwth-aachen.de/stundenplan/web/eventFeed/2&null?start=${date}&end=${date}`
@@ -211,15 +214,15 @@ function App() {
           <div
             key={i}
             onClick={() => (setPopup(item), setOverflow(true))}
-            className={`cursor-pointer rounded-2xl p-5 flex flex-col items-center ${
+            className={`cursor-pointer rounded-2xl p-5 flex flex-col items-center opacity-30 ${
               currentSlot?.isExercise === "0" && currentSlot?.name === item.name
-                ? "opacity-100"
-                : "opacity-30"
+                ? "!opacity-100"
+                : ""
             } ${
               currentSlot?.isExercise === "1" &&
               currentSlot?.information === item.information
                 ? "!opacity-100"
-                : "!opacity-30"
+                : ""
             } 
               ${
                 {
