@@ -148,82 +148,92 @@ function App() {
   }, [data]);
 
   return (
-    <div className="h-full flex flex-col items-center mt-2 text-white">
-      {popup && (
-        <div
-          className="absolute inset-0 flex items-center justify-center bg-black/70"
-          onClick={() => (setPopup(null), setOverflow(false))}
-        >
+    <>
+      <div className=" text-white mt-20 w-[90%] mx-auto flex flex-col items-center">
+        <h1 className="text-3xl sm:text-5xl font-bold flex items-center gap-4 text-center"><img className="w-10 h-10 mt-1" src="/matse-logo.png" />Matse Links </h1>
+        <h3 className="text-gray-300 mb-8 text-center mt-4 sm:mt-2">
+          Eine Sammlung von Links und Informationen für Matse Studenten
+        </h3>
+      </div>
+      <div className="h-full flex flex-col items-center mt-2 text-white">
+        {popup && (
           <div
-            className="bg-white opacity-100 z-50 p-4 rounded-lg w-[600px] relative max-w-[90%]"
-            onClick={(e) => e.stopPropagation()}
+            className="absolute inset-0 flex items-center justify-center bg-black/70"
+            onClick={() => (setPopup(null), setOverflow(false))}
           >
-            <h2 className="text-2xl font-bold text-blue-500">Informationen</h2>
-            <div className="flex flex-col mt-4 text-black">
-              <strong>Name</strong>
-              <p className="text-gray-700 mb-4">{popup.name}</p>
-              <strong>Start</strong>
-              <p className="text-gray-700 mb-4">
-                {popup.start.split("T")[1].slice(0, 5)} -{" "}
-                {popup.end.split("T")[1].slice(0, 5)}
-              </p>
-              <strong>Raum</strong>
-              <p className="text-gray-700 mb-4">{popup.location.desc}</p>
-              {popup.lecturer.name && (
-                <>
-                  <strong>Dozent</strong>
-                  <p className="text-gray-700 mb-4">{popup.lecturer.name}</p>
-                </>
-              )}
-              {popup.information !== "<br />" && popup.information && (
-                <>
-                  <strong>Informationen</strong>
-                  <p
-                    dangerouslySetInnerHTML={{ __html: popup.information }}
-                    className="text-gray-700 mb-4"
-                  ></p>
-                </>
-              )}
-            </div>
-            <button
-              onClick={() => (setPopup(null), setOverflow(false))}
-              className="absolute top-3 right-3 bg-blue-500 text-white w-10 h-10 flex items-center justify-center rounded-full"
+            <div
+              className="bg-white opacity-100 z-50 p-4 rounded-lg w-[600px] relative max-w-[90%]"
+              onClick={(e) => e.stopPropagation()}
             >
-              <X />
-            </button>
+              <h2 className="text-2xl font-bold text-blue-500">
+                Informationen
+              </h2>
+              <div className="flex flex-col mt-4 text-black">
+                <strong>Name</strong>
+                <p className="text-gray-700 mb-4">{popup.name}</p>
+                <strong>Start</strong>
+                <p className="text-gray-700 mb-4">
+                  {popup.start.split("T")[1].slice(0, 5)} -{" "}
+                  {popup.end.split("T")[1].slice(0, 5)}
+                </p>
+                <strong>Raum</strong>
+                <p className="text-gray-700 mb-4">{popup.location.desc}</p>
+                {popup.lecturer.name && (
+                  <>
+                    <strong>Dozent</strong>
+                    <p className="text-gray-700 mb-4">{popup.lecturer.name}</p>
+                  </>
+                )}
+                {popup.information !== "<br />" && popup.information && (
+                  <>
+                    <strong>Informationen</strong>
+                    <p
+                      dangerouslySetInnerHTML={{ __html: popup.information }}
+                      className="text-gray-700 mb-4"
+                    ></p>
+                  </>
+                )}
+              </div>
+              <button
+                onClick={() => (setPopup(null), setOverflow(false))}
+                className="absolute top-3 right-3 bg-blue-500 text-white w-10 h-10 flex items-center justify-center rounded-full"
+              >
+                <X />
+              </button>
+            </div>
           </div>
-        </div>
-      )}
-      <h2
-        className="text-3xl text-center font-bold mt-20 max-w-[90%] leading-30 cursor-pointer"
-        onClick={() =>
-          window.open(
-            "https://www.matse.itc.rwth-aachen.de/stundenplan/web/index.html"
-          )
-        }
-      >
-        Stundenplan
-        <ExternalLink className="inline ml-2 w-6 h-6 -mt-1" color="#3C82F6" />
-        <p className="font-normal text-[18px] text-gray-500">
-          {new Date().toLocaleDateString("de-DE", { weekday: "long" })} (
-          {new Date().toLocaleDateString("de-DE")})
-        </p>
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-[90%] gap-8 mt-8">
-        {data?.map((item, i) => (
-          <div
-            key={i}
-            onClick={() => (setPopup(item), setOverflow(true))}
-            className={`cursor-pointer rounded-2xl p-5 flex flex-col items-center opacity-30 ${
-              currentSlot?.isExercise === "0" && currentSlot?.name === item.name
-                ? "!opacity-100"
-                : ""
-            } ${
-              currentSlot?.isExercise === "1" &&
-              currentSlot?.information === item.information
-                ? "!opacity-100"
-                : ""
-            } 
+        )}
+        <h2
+          className="text-3xl text-center font-bold mt-14 max-w-[90%] leading-30 cursor-pointer"
+          onClick={() =>
+            window.open(
+              "https://www.matse.itc.rwth-aachen.de/stundenplan/web/index.html"
+            )
+          }
+        >
+          Stundenplan
+          <ExternalLink className="inline ml-2 w-6 h-6 -mt-1" color="#3C82F6" />
+          <p className="font-normal text-[18px] text-gray-500">
+            {new Date().toLocaleDateString("de-DE", { weekday: "long" })} (
+            {new Date().toLocaleDateString("de-DE")})
+          </p>
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-[90%] gap-8 mt-8">
+          {data?.map((item, i) => (
+            <div
+              key={i}
+              onClick={() => (setPopup(item), setOverflow(true))}
+              className={`cursor-pointer rounded-2xl p-5 flex flex-col items-center opacity-30 ${
+                currentSlot?.isExercise === "0" &&
+                currentSlot?.name === item.name
+                  ? "!opacity-100"
+                  : ""
+              } ${
+                currentSlot?.isExercise === "1" &&
+                currentSlot?.information === item.information
+                  ? "!opacity-100"
+                  : ""
+              } 
               ${
                 {
                   "Numerik 1": "bg-red-500",
@@ -232,78 +242,79 @@ function App() {
                   "Wissenschaftliches Arbeiten": "bg-yellow-500",
                 }[item.name] || "bg-purple-500"
               }`}
-          >
-            <p className="bg-slate-900/20 rounded-lg px-2 py-1">
-              {new Date(item.start).toLocaleTimeString("de-DE", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}{" "}
-              -{" "}
-              {new Date(item.end).toLocaleTimeString("de-DE", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </p>
-            <h2 className="text-lg text-center mt-4">{item.name}</h2>
-          </div>
-        ))}
-      </div>
-      {Object.keys(links).map((title, i) => (
-        <section key={i} className="mt-20 w-[90%] mb-16">
-          <h2 className="text-4xl text-center lg:text-left font-bold mt-4 mb-8">
-            {title}{" "}
-            {title === "Allgemeines " && (
-              <Globe className="inline ml-2 w-10 h-10 -mt-2" />
-            )}
-            {title === "Emails" && (
-              <Mail className="inline ml-2 w-10 h-10 -mt-2" />
-            )}
-            {title === "Hausaufgaben" && (
-              <Book className="inline ml-2 w-10 h-10 -mt-2" />
-            )}
-            {title === "ILIAS" && (
-              <FileText className="inline ml-2 w-10 h-10 -mt-2" />
-            )}
-            {title === "MATSE Wiki" && (
-              <BookOpen className="inline ml-2 w-10 h-10 -mt-2" />
-            )}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-            {links[title].map((link, index) => (
-              <Box key={index} title={link.name} url={link.url} />
-            ))}
-          </div>
-        </section>
-      ))}
-      <footer className="w-full bg-transparent text-center py-10 mt-20 border-t border-gray-700 flex-col flex items-center">
-        <div className="flex gap-4 mb-4">
-          <a
-            href="https://github.com/robin-ahn-dev"
-            target="_blank"
-            className="w-[29px] h-[29px]"
-          >
-            <FaGithub className="h-full w-full hover:text-blue-500 transition-all" />
-          </a>
-          <a
-            href="https://instagram.com/robin_ahn_dev"
-            target="_blank"
-            className="w-[29px] h-[29px]"
-          >
-            <FaInstagram className="h-full w-full hover:text-blue-500 transition-all" />
-          </a>
-          <a
-            href="https://linkedin.com/in/robin-ahn"
-            target="_blank"
-            className="w-[29px] h-[29px]"
-          >
-            <FaLinkedin className="h-full w-full hover:text-blue-500 transition-all" />
-          </a>
+            >
+              <p className="bg-slate-900/20 rounded-lg px-2 py-1">
+                {new Date(item.start).toLocaleTimeString("de-DE", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}{" "}
+                -{" "}
+                {new Date(item.end).toLocaleTimeString("de-DE", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </p>
+              <h2 className="text-lg text-center mt-4">{item.name}</h2>
+            </div>
+          ))}
         </div>
-        <p className="text-gray-400">
-          Copyright © 2025 Robin Ahn. Alle Rechte vorbehalten
-        </p>
-      </footer>
-    </div>
+        {Object.keys(links).map((title, i) => (
+          <section key={i} className="mt-20 w-[90%] mb-16">
+            <h2 className="text-4xl text-center lg:text-left font-bold mt-4 mb-8">
+              {title}{" "}
+              {title === "Allgemeines " && (
+                <Globe className="inline ml-2 w-10 h-10 -mt-2" />
+              )}
+              {title === "Emails" && (
+                <Mail className="inline ml-2 w-10 h-10 -mt-2" />
+              )}
+              {title === "Hausaufgaben" && (
+                <Book className="inline ml-2 w-10 h-10 -mt-2" />
+              )}
+              {title === "ILIAS" && (
+                <FileText className="inline ml-2 w-10 h-10 -mt-2" />
+              )}
+              {title === "MATSE Wiki" && (
+                <BookOpen className="inline ml-2 w-10 h-10 -mt-2" />
+              )}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+              {links[title].map((link, index) => (
+                <Box key={index} title={link.name} url={link.url} />
+              ))}
+            </div>
+          </section>
+        ))}
+        <footer className="w-full bg-transparent text-center py-10 mt-20 border-t border-gray-700 flex-col flex items-center">
+          <div className="flex gap-4 mb-4">
+            <a
+              href="https://github.com/robin-ahn-dev"
+              target="_blank"
+              className="w-[29px] h-[29px]"
+            >
+              <FaGithub className="h-full w-full hover:text-blue-500 transition-all" />
+            </a>
+            <a
+              href="https://instagram.com/robin_ahn_dev"
+              target="_blank"
+              className="w-[29px] h-[29px]"
+            >
+              <FaInstagram className="h-full w-full hover:text-blue-500 transition-all" />
+            </a>
+            <a
+              href="https://linkedin.com/in/robin-ahn"
+              target="_blank"
+              className="w-[29px] h-[29px]"
+            >
+              <FaLinkedin className="h-full w-full hover:text-blue-500 transition-all" />
+            </a>
+          </div>
+          <p className="text-gray-400">
+            Copyright © 2025 Robin Ahn. Alle Rechte vorbehalten
+          </p>
+        </footer>
+      </div>
+    </>
   );
 }
 export default App;
