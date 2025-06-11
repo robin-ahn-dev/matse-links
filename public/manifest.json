@@ -16,8 +16,8 @@
     "start_url": "/",
     "scope": "/",
     "display": "standalone",
-    "theme_color": "#062A40",
-    "background_color": "#062A40",
+    "theme_color": "#094277",
+    "background_color": "#094277",
     "orientation": "portrait",
     "description": "Alle wichtigen Links für MATSE"
 }
