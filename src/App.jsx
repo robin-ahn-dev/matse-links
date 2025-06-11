@@ -150,8 +150,8 @@ function App() {
   return (
     <>
       <div className=" text-white mt-20 w-[90%] mx-auto flex flex-col items-center">
-        <h1 className="text-3xl sm:text-5xl font-bold flex items-center gap-4 text-center"><img className="w-10 h-10 mt-1" src="/matse-logo.png" />Matse Links </h1>
-        <h3 className="text-gray-300 mb-8 text-center mt-4 sm:mt-2">
+        <h1 className="text-3xl sm:text-5xl font-bold flex items-center gap-4 text-center"><img className="w-10 h-10" src="/matse-logo.png" />Matse Links </h1>
+        <h3 className="text-gray-300 mb-8 text-center mt-4 sm:mt-3 max-w-[80%]">
           Eine Sammlung von Links und Informationen für Matse Studenten
         </h3>
       </div>
@@ -162,7 +162,7 @@ function App() {
             onClick={() => (setPopup(null), setOverflow(false))}
           >
             <div
-              className="bg-white opacity-100 z-50 p-4 rounded-lg w-[600px] relative max-w-[90%]"
+              className="bg-white opacity-100 z-50 p-4 rounded-2xl w-[600px] relative max-w-[90%]"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-2xl font-bold text-blue-500">
@@ -204,7 +204,7 @@ function App() {
           </div>
         )}
         <h2
-          className="text-3xl text-center font-bold mt-14 max-w-[90%] leading-30 cursor-pointer"
+          className="text-3xl text-center font-bold mt-6 sm:mt-14 max-w-[90%] leading-30 cursor-pointer"
           onClick={() =>
             window.open(
               "https://www.matse.itc.rwth-aachen.de/stundenplan/web/index.html"
@@ -213,7 +213,7 @@ function App() {
         >
           Stundenplan
           <ExternalLink className="inline ml-2 w-6 h-6 -mt-1" color="#3C82F6" />
-          <p className="font-normal text-[18px] text-gray-500">
+          <p className="font-normal text-[18px] text-gray-300">
             {new Date().toLocaleDateString("de-DE", { weekday: "long" })} (
             {new Date().toLocaleDateString("de-DE")})
           </p>
@@ -285,7 +285,7 @@ function App() {
             </div>
           </section>
         ))}
-        <footer className="w-full bg-transparent text-center py-10 mt-20 border-t border-gray-700 flex-col flex items-center">
+        <footer className="w-full bg-transparent text-center py-10 mt-20 border-t border-[#3c82f6] flex-col flex items-center">
           <div className="flex gap-4 mb-4">
             <a
               href="https://github.com/robin-ahn-dev"
@@ -309,7 +309,7 @@ function App() {
               <FaLinkedin className="h-full w-full hover:text-blue-500 transition-all" />
             </a>
           </div>
-          <p className="text-gray-400">
+          <p className="text-gray-300">
             Copyright © 2025 Robin Ahn. Alle Rechte vorbehalten
           </p>
         </footer>
